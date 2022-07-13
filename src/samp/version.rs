@@ -18,13 +18,15 @@ pub enum Version {
 pub fn version() -> Version {
     unsafe {
         if VERSION == Version::Unknown {
+			log::trace!("CRMP::VersionUnknown");
             let someshit = CString::new("\\multiplayer_z\\").unwrap();
             let filename = CString::new("san_andreas_multiplayer.dll").unwrap();
             let filename_ptr = filename.as_ptr() as *const i8;
             let size = GetFileVersionInfoSizeA(filename_ptr, 0 as *mut _);
 
             if size == 0 {
-                return Version::Unknown;
+				log::trace!("CRMP::Size=0");
+                //return Version::Unknown;
             }
 
             let mut buffer = vec![0u8; size as usize];
@@ -32,7 +34,7 @@ pub fn version() -> Version {
             let buffer_ptr = buffer.as_mut_ptr() as *mut _;
 
             if GetFileVersionInfoA(filename_ptr, 0, size, buffer_ptr) == 0 {
-                return Version::Unknown;
+                //return Version::Unknown;
             }
 
             let mut fileinfo_ptr: usize = 0; // pointer
@@ -60,15 +62,16 @@ pub fn version() -> Version {
                 _ => Version::Unknown,
             };
 
-            VERSION = version;
+            VERSION = Version::V037R3;
 
-            version
+            Version::V037R3
         } else {
-            VERSION
+            Version::V037R3
         }
     }
 }
 
 pub fn is_unknown_version() -> bool {
-    version() == Version::V037R3
+	log::trace!("CRMP::VersionUnknown == V037R3");
+    //version() == Version::V037R3
 }
