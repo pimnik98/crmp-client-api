@@ -73,5 +73,5 @@ pub fn version() -> Version {
 
 pub fn is_unknown_version() -> bool {
 	log::trace!("CRMP::VersionUnknown == V037R3");
-    //version() == Version::V037R3
+    false
 }
