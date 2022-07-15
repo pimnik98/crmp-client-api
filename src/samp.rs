@@ -110,5 +110,6 @@ pub fn is_loaded() -> bool {
 }
 
 pub fn handle() -> *mut u8 {
+	log::trace!("CRMP::samp.dll");
     crate::utils::module_handle("samp.dll") as *mut u8
 }

@@ -27,7 +27,7 @@ pub fn is_key_pressed(key: i32) -> bool {
 
 pub fn module_handle(name: &str) -> HMODULE {
     let c_name = CString::new(name).unwrap();
-
+	log::trace!("CRMP::module_handle");
     unsafe { GetModuleHandleA(c_name.as_ptr() as *const _) }
 }
 
